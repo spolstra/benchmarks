@@ -1,0 +1,16 @@
+This directory contains a modified version of the classical
+'dhrystone' benchmark.
+
+This version was modified as follows:
+
+- function declarations were introduced to silence warnings in modern
+  C compilers.
+- a new way to measure time with gettimeofday() was introduced,
+  activated with -DGTIMEOD.
+
+
+NB: The Makefile invokes `slc' with -DMG_VIRTUAL_TIME, so that when
+    run in MGSim the time is computing relative to the simulation, not
+    to the wall clock. This avoids benchmarking differences when
+    running MGSim on different systems where MGSim itself would run at
+    different speeds.
