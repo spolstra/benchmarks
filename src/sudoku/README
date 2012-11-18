@@ -1,0 +1,13 @@
+
+This directory contains a modified version of the
+Sudoku solver from http://www.techfinesse.com/game/sudoku_solver.php.
+
+This version can only read sudoku puzzles from the command line.
+
+To run with MGSim use e.g.:
+
+slr -- ./sudoku_solver -Gp .........8..3.5..2..6...9...4.5.6.8.7.1...4.9...9.1...97..6..35..3...1....4.2.7....
+
+Other example puzzles can be found in solver_1.20/Top95.sudoku.
+
+
