@@ -1,14 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef CUSTOM_RANDOM
+#include "random.c"
+#endif
+
 int main(int argc, char *argv[])
 {
-   int i, its, hits = 0;
+   unsigned int i, its, hits = 0;
    double d1, d2;
 
    if (argc != 2) {
       fprintf(stderr, "Usage: %s <iterations>\n", argv[0]);
-      exit(0);
+      return 1;
    }
 
    its = atoi(argv[1]);

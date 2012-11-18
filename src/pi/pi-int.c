@@ -1,23 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// radius of circle
-#define RADIUS 10000
+#ifdef CUSTOM_RANDOM
+#include "random.c"
+#endif
 
-/* reference:
- * http://en.wikipedia.org/wiki/Linear_feedback_shift_register
- * 32-bit maximal period Galois LFSR.
-*/
-unsigned int myrandom() {
-    static unsigned int lfsr = 1234569;
-
-    lfsr = (lfsr >> 1) ^ (-(lfsr & 1u) & 0xD0000001u);
-    return lfsr;
-}
+#define PRECISION 3
+// radius of circle, must be 10^PRECISION
+#define RADIUS 1000
 
 int main(int argc, char *argv[])
 {
-   int i, its, hits = 0;
+   unsigned int i, its, hits = 0;
    unsigned int i1, i2;
 
    if (argc != 2) {
@@ -26,14 +20,21 @@ int main(int argc, char *argv[])
    }
 
    its = atoi(argv[1]);
-   //srandom(1);
+   srandom(1);
    for (i = 0; i < its; i++) {
-       i1 = myrandom() % RADIUS;
-       i2 = myrandom() % RADIUS;
+       i1 = random() % RADIUS;
+       i2 = random() % RADIUS;
        if ((i1*i1 + i2*i2) <= RADIUS*RADIUS)
            hits++;
    }
-   printf("%d.%02d\n", ((hits*4*100) / its)/100, (((hits*4*100) / its))%100);
+   
+   unsigned int approx = (hits*4*RADIUS / its);
+   unsigned int whole = approx / RADIUS;
+   unsigned int decimal = approx % RADIUS;
+
+#define make_format_(p) "%u.%0" #p "u\n"
+#define make_format(p) make_format_(p)
+   printf(make_format(PRECISION), whole, decimal);
    return 0;
 }
 
