@@ -1,0 +1,10 @@
+To build the sudoku_solver binary on your Linux workstation, simple run 'make'.
+If your into performance optimization, edit the Makefile and change the
+processor option PROC_OPT from '-march=i686' to whatever better suits
+your processor architecture. Check the GCC docs for details. Also, by omitting
+the option -DEXPLAIN from the compile time options, (and thereby eliminating
+the -e or explain option) you will gain a speed improvement of roughly 6%.
+
+For more documentation on how to run the program, see the source code
+(No really, there is a write-up in the initial comment block! ;-) or 
+run the program with the -? option.
