@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef CUSTOM_RANDOM
+#include "random.c"
+#endif
+
 void print_array(int a[], int size) {
-    for (int i=0; i < size; i++)
+    int i;
+    for (i=0; i < size; i++)
         printf("%d ", a[i]);
     printf("\n");
 }
@@ -35,18 +40,22 @@ void myqsort (int a[], int left, int right) {
 }
 
 int main(int argc, char* argv[]) {
-    //int a[] = {2,3,1,0};
-    if (argc < 1)
+    int size, i;
+    int *a;
+
+    if (argc != 2) {
+        printf("Usage %s <array size>\n", argv[0]);
         exit(2);
+    }
 
-    int size = argc-1;
-    int *a = malloc (sizeof (int) * size);
+    size = atoi(argv[1]);
+    a = malloc (sizeof (int) * size);
 
-    for (int i=1; i < argc; i++)
-        a[i-1] = atoi(argv[i]);
+    srandom(1);
+    for (i=0; i < size; i++)
+        a[i] = random();
 
-
-    print_array(a, size);
+    //print_array(a, size);
     myqsort(a, 0, size - 1);
     print_array(a, size);
 
