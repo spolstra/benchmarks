@@ -22,9 +22,14 @@
 CC		= slc -b mipsel_s
 WARNINGS	= -Wall
 COMPILE		= -DEXPLAIN
+RUN_COMMAND = slr -- ./sudoku_solver -Gp .........8..3.5..2..6...9...4.5.6.8.7.1...4.9...9.1...97..6..35..3...1....4.2.7....
 DEBUG		= 
 PROC_OPT        =
 LD_OPT		= 
+
+# Simple Scalar
+#CC	= xgcc
+#RUN_COMMAND = sim-outorder sudoku_solver -Gp .........8..3.5..2..6...9...4.5.6.8.7.1...4.9...9.1...97..6..35..3...1....4.2.7....
 
 # Linux gcc 2.5.8 (or better) compiler
 #CC		= gcc
@@ -32,7 +37,7 @@ LD_OPT		=
 #COMPILE		= -pipe -O2 -DEXPLAIN
 #COMPILE	= -pipe -O2
 #DEBUG		= -g
-#PROC_OPT        = -march=i686
+##PROC_OPT        = -march=i686
 #LD_OPT		= -s
 
 
@@ -71,6 +76,9 @@ OBJS  = $(SRCS:.c=.o)
 
 sudoku_solver: $(SRCS) $(OBJS) $(HEADERS)
 	$(CC) $(CFLAGS) $(LD_OPT) -o $@ $(OBJS)
+
+run: sudoku_solver
+	$(RUN_COMMAND)
 
 clean:
 	rm -f $(OBJS) sudoku_solver core *~
